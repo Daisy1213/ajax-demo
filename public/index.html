@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>学生成绩查询</h1>
+<label for="id">学号：</label>
+<input type="text" id="id"/>
+<button type="button" id="search">查询</button>
+<p id="query-result"></p>
+<h1>录入学生成绩</h1>
+<label for="stu-id">学号：</label>
+<input type="text" id="stu-id"/><br/>
+<label for="stu-name">姓名：</label>
+<input type="text" id="stu-name"/><br/>
+<label for="stu-sex">性别：</label>
+<input type="text" id="stu-sex"/><br/>
+<label for="stu-chinese">语文：</label>
+<input type="text" id="stu-chinese"/><br/>
+<label for="stu-math">数学：</label>
+<input type="text" id="stu-math"/>
+<button id="build">录入</button>
+<p id="build-result"></p>
+
+</body>
+<script type="text/javascript">
+    document.getElementById('search').onclick = () => {
+        let id = document.getElementById('id').value;
+        //发送ajax请求并处理
+        let request = new XMLHttpRequest();
+        request.open('GET', `/query/?id=${id}`);
+        request.send();
+        request.onreadystatechange = () => {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    let response = JSON.parse(request.responseText);
+                    if (response.success) {
+                        document.getElementById('query-result').innerHTML = response.msg;
+                    } else {
+                        document.getElementById('query-result').innerHTML = '出现错误：' + response.msg;
+                    }
+                } else {
+                    alert('发生错误' + request.status);
+                }
+            }
+        }
+    };
+
+    document.getElementById('build').onclick = () => {
+        let data = 'id=' + document.getElementById('stu-id').value + '&name=' + document.getElementById('stu-name').value
+                + '&sex=' + document.getElementById('stu-sex').value + '&chinese=' + document.getElementById('stu-chinese').value
+                + '&math=' + document.getElementById('stu-math').value;
+        //发送ajax请求并处理
+        let request = new XMLHttpRequest();
+        request.open('POST', `/build`);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');//post请求必须设置请求头的格式
+        request.send(data);
+        request.onreadystatechange = () => {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    let response = JSON.parse(request.responseText);
+                    if (response.success) {
+                        document.getElementById('build-result').innerHTML = response.msg;
+                    } else {
+                        console.log(response.msg)
+                        document.getElementById('build-result').innerHTML = '出现错误：' + response.msg;
+                    }
+                } else {
+                    alert('发生错误' + request.status);
+                }
+            }
+        }
+    };
+
+</script>
+</html>

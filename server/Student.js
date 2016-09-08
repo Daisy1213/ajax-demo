@@ -3,7 +3,7 @@
  */
 let mongoose = require('mongoose');
 
-const Students = mongoose.model('Students', {
+const Student = mongoose.model('Student', {
   student_id: String,
   name: String,
   sex: String,
@@ -11,4 +11,4 @@ const Students = mongoose.model('Students', {
   math: Number
 });
 
-module.exports = Students;
+module.exports = Student;
