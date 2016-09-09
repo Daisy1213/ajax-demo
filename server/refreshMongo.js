@@ -24,4 +24,4 @@ Object.keys(rawData)
         }
       })
     })
-  })
+  });

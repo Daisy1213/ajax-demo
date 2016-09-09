@@ -1,8 +1,7 @@
 /**
  * Created by zhangsha on 16-9-9.
  */
-module.exports = [
-  {
+module.exports = {
     Student: [{
       student_id: '06131001',
       name: '小白',
@@ -18,11 +17,10 @@ module.exports = [
       math: 99
     },
     {
-      student_id: '06131001',
+      student_id: '06131003',
       name: '大白',
       sex: '女',
       chinese: 88,
       math: 79
     }]
-  }
-];
+  };

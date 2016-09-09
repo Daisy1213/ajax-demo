@@ -18,9 +18,9 @@ app.get('/query', (req, res) => {
   Student
     .where({student_id: req.query.id})
     .findOne((err, student) => {
-      if(student){
+      if (student) {
         res.send({'success': true, 'msg': `${student.name}学生信息已查询到`});
-      }else {
+      } else {
         res.send({'success': false, 'msg': '没有找到该员工'});
       }
     });
@@ -32,9 +32,9 @@ app.post('/build', (req, res) => {
   let sex = req.body.sex;
   let chinese = req.body.chinese;
   let math = req.body.math;
-  if(id === '' || name === '' || sex === '' || chinese === '' || math === ''){
+  if (id === '' || name === '' || sex === '' || chinese === '' || math === '') {
     res.send({'success': false, 'msg': '输入信息不完整'});
-  }else {
+  } else {
     new Student({
       student_id: id,
       name: name,
